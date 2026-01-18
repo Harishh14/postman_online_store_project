@@ -1,0 +1,8 @@
+newman run Product.postman_collection.json ^
+More? -g workspace.postman_globals.json ^
+More? -d pd.json ^
+More? -r htmlextra ^
+More? --reporter-htmlextra-export ./reports/report.html ^
+More? --reporter-htmlextra-title "Store API Test Report" ^
+More? --reporter-htmlextra-browserTitle "Store API Test Summary" ^
+More? --reporter-htmlextra-reportName "Store API Dashboard"

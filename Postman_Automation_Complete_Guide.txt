@@ -1,0 +1,254 @@
+
+==============================
+POSTMAN AUTOMATION COMPLETE NOTES
+(Newman CLI, Postman CLI & Jenkins Pipeline)
+==============================
+
+--------------------------------
+1) NEWMAN CLI (Advanced Reporting + CI Friendly)
+--------------------------------
+
+✅ Use When:
+- Jenkins / CI pipelines
+- Fancy reports (htmlextra)
+- Local automation
+
+-----------------
+Installation (One Time)
+-----------------
+npm install -g newman
+npm install -g newman-reporter-htmlextra
+
+-----------------
+Folder Structure
+-----------------
+pcol/
+ ├── Product.postman_collection.json
+ ├── pd.json
+ ├── workspace.postman_globals.json
+ └── reports/
+
+-----------------
+Basic Run
+-----------------
+newman run Product.postman_collection.json
+
+-----------------
+With Data + Globals
+-----------------
+newman run Product.postman_collection.json -d pd.json -g workspace.postman_globals.json
+
+-----------------
+Fancy HTML Report (htmlextra)
+-----------------
+newman run Product.postman_collection.json ^
+-d pd.json ^
+-g workspace.postman_globals.json ^
+-r htmlextra --reporter-htmlextra-export reports/report.html
+
+-----------------
+JUnit Report (CI Friendly)
+-----------------
+newman run Product.postman_collection.json -r junit --reporter-junit-export reports/result.xml
+
+--------------------------------
+2) POSTMAN CLI (Cloud Sync + Simple Runs)
+--------------------------------
+
+✅ Use When:
+- Quick workspace runs
+- Simple HTML reports
+- Token sync from Postman
+
+-----------------
+Installation
+-----------------
+npm install -g postman-cli
+
+-----------------
+Login
+-----------------
+postman login --with-api-key PMAK-XXXX
+
+-----------------
+Run Collection (By ID)
+-----------------
+postman collection run <collection-id>
+
+-----------------
+With Data + Globals
+-----------------
+postman collection run <collection-id> -d pd.json -g workspace.postman_globals.json
+
+-----------------
+HTML Report
+-----------------
+postman collection run <collection-id> -r html --reporter-html-export report.html
+
+-----------------
+Supported Reporters
+-----------------
+cli, json, junit, html
+(htmlextra NOT supported)
+
+--------------------------------
+3) JENKINS PIPELINE (Postman CLI)
+--------------------------------
+
+✅ Use When:
+- Scheduled automation
+- CI/CD validation
+- Build pass/fail logic
+
+-----------------
+Prerequisites
+-----------------
+✔ Jenkins Installed
+✔ Node.js Installed
+✔ Postman CLI Installed
+✔ HTML Publisher Plugin Installed
+
+-----------------
+Step 1: Add Postman API Key to Jenkins
+-----------------
+Jenkins → Manage Jenkins → Credentials → Global → Add Credentials
+
+Kind: Secret Text
+Secret: <Your Postman API Key>
+ID: postman-api-key
+
+-----------------
+Step 2: Jenkins Script Console Command (Fix HTML Reports)
+-----------------
+Manage Jenkins → Script Console → Run:
+
+System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
+
+Restart Jenkins
+
+-----------------
+Step 3: Jenkins Pipeline Script (WORKING - Windows)
+-----------------
+
+pipeline {
+    agent any
+
+    environment {
+        POSTMAN_API_KEY = credentials('postman-api-key')
+        WORKDIR = 'D:\automation\Api_testing\Collections & data files\pcol'
+    }
+
+    stages {
+
+        stage('Postman Login') {
+            steps {
+                bat 'postman login --with-api-key %POSTMAN_API_KEY%'
+            }
+        }
+
+        stage('Run Collection') {
+            steps {
+                bat '''
+                cd /d "%WORKDIR%"
+                postman collection run "39395084-978f9bf0-8288-40ad-a094-6a3146aa3bb7" ^
+                -d "pd.json" ^
+                -g "workspace.postman_globals.json" ^
+                -r html --reporter-html-export "report.html"
+                '''
+            }
+        }
+
+        stage('Publish Report') {
+            steps {
+                publishHTML(target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'D:\automation\Api_testing\Collections & data files\pcol',
+                    reportFiles: 'report.html',
+                    reportName: 'Postman API Report'
+                ])
+            }
+        }
+    }
+}
+
+-----------------
+Where Report Appears in Jenkins
+-----------------
+Job → Left Sidebar → "Postman API Report"
+
+--------------------------------
+4) JENKINS PIPELINE (Newman + Fancy Report)
+--------------------------------
+
+Best UI option 🔥
+
+-----------------
+Install
+-----------------
+npm install -g newman newman-reporter-htmlextra
+
+-----------------
+Pipeline Script
+-----------------
+
+pipeline {
+    agent any
+
+    environment {
+        WORKDIR = 'D:\automation\Api_testing\Collections & data files\pcol'
+    }
+
+    stages {
+
+        stage('Run Collection with Newman') {
+            steps {
+                bat '''
+                cd /d "%WORKDIR%"
+                newman run "Product.postman_collection.json" ^
+                -d "pd.json" ^
+                -g "workspace.postman_globals.json" ^
+                -r htmlextra --reporter-htmlextra-export "reports/report.html"
+                '''
+            }
+        }
+
+        stage('Publish Report') {
+            steps {
+                publishHTML(target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'D:\automation\Api_testing\Collections & data files\pcol\reports',
+                    reportFiles: 'report.html',
+                    reportName: 'Newman API Report'
+                ])
+            }
+        }
+    }
+}
+
+--------------------------------
+5) COMMON ERRORS & FIXES
+--------------------------------
+
+❌ htmlextra not recognised → Use Newman, not Postman CLI
+❌ data is not recognized → Use quotes for folders with spaces
+❌ HTML report blank → Run CSP fix command in Script Console
+❌ Jenkins stage error → Ensure steps { } block exists
+❌ Windows curl install error → Skip install step
+
+--------------------------------
+6) QUICK MEMORY TABLE
+--------------------------------
+
+Tool        | Best Use Case            | Fancy UI | CI Friendly
+------------|--------------------------|----------|-------------
+Newman      | Automation + Jenkins     | ✅       | ✅
+Postman CLI | Quick workspace runs     | ❌       | ⚠️
+Jenkins     | Production automation    | ✅       | ✅
+
+--------------------------------
+END OF NOTES
+--------------------------------

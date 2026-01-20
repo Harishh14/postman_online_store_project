@@ -1,0 +1,415 @@
+{
+	"id": "cff142b5-847b-42a1-a7a5-e97c1cf6467b",
+	"name": "Product",
+	"timestamp": "2026-01-20T14:38:52.111Z",
+	"collection_id": "39395084-978f9bf0-8288-40ad-a094-6a3146aa3bb7",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 28,
+	"delay": "1",
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2026-01-20T14:38:44.859Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "7055de7c-6156-4682-9f76-b1fc79dff098",
+			"name": "get single product",
+			"url": "https://fakestoreapi.com/products/1",
+			"time": 730,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200 or 201": true,
+				"Successful response": true,
+				"JSON schema validation": true,
+				"Response is a non-empty object": true,
+				"Returned product matches requested ID": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200 or 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Successful response": {
+					"pass": 1,
+					"fail": 0
+				},
+				"JSON schema validation": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is a non-empty object": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Returned product matches requested ID": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				730
+			],
+			"allTests": [
+				{
+					"Status code is 200 or 201": true,
+					"Successful response": true,
+					"JSON schema validation": true,
+					"Response is a non-empty object": true,
+					"Returned product matches requested ID": true
+				}
+			]
+		},
+		{
+			"id": "98493ee3-c34c-496c-bdc7-fde1a8c9d90b",
+			"name": "get all products",
+			"url": "https://fakestoreapi.com/products",
+			"time": 296,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200 or 201": true,
+				"Each product matches schema": true,
+				"Status code is 200": true,
+				"length is 20": true,
+				"json response is a non empty array": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200 or 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Each product matches schema": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"length is 20": {
+					"pass": 1,
+					"fail": 0
+				},
+				"json response is a non empty array": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				296
+			],
+			"allTests": [
+				{
+					"Status code is 200 or 201": true,
+					"Each product matches schema": true,
+					"Status code is 200": true,
+					"length is 20": true,
+					"json response is a non empty array": true
+				}
+			]
+		},
+		{
+			"id": "d2392201-ffdc-4695-acc1-8de40e34a412",
+			"name": "get limited & sorted product",
+			"url": "https://fakestoreapi.com/products?limit=13&sort=asc",
+			"time": 288,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200 or 201": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200 or 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				288
+			],
+			"allTests": [
+				{
+					"Status code is 200 or 201": true
+				}
+			]
+		},
+		{
+			"id": "8967ea82-be8e-48fc-ad45-19e898f450a0",
+			"name": "get all categories",
+			"url": "https://fakestoreapi.com/products/categories",
+			"time": 299,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200 or 201": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200 or 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				299
+			],
+			"allTests": [
+				{
+					"Status code is 200 or 201": true
+				}
+			]
+		},
+		{
+			"id": "b73a2cf7-835d-4fd1-977d-6613b05e8af8",
+			"name": "get specific category product",
+			"url": "https://fakestoreapi.com/products/category/men's clothing",
+			"time": 289,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200 or 201": true,
+				"expected schema validation": true,
+				"response is an array and not empty validation": true,
+				"only products of the given category is returned": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200 or 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"expected schema validation": {
+					"pass": 1,
+					"fail": 0
+				},
+				"response is an array and not empty validation": {
+					"pass": 1,
+					"fail": 0
+				},
+				"only products of the given category is returned": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				289
+			],
+			"allTests": [
+				{
+					"Status code is 200 or 201": true,
+					"expected schema validation": true,
+					"response is an array and not empty validation": true,
+					"only products of the given category is returned": true
+				}
+			]
+		},
+		{
+			"id": "3234616a-a3b0-4a63-ac5b-dda5d01f74e5",
+			"name": "New Request",
+			"url": "https://fakestoreapi.com/products",
+			"time": 322,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 200 or 201": true,
+				"Response status code is 201": true,
+				"Schema validation": true,
+				"Product fields are present": true,
+				"Returned product matches sent product": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200 or 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response status code is 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Schema validation": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Product fields are present": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Returned product matches sent product": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				322
+			],
+			"allTests": [
+				{
+					"Status code is 200 or 201": true,
+					"Response status code is 201": true,
+					"Schema validation": true,
+					"Product fields are present": true,
+					"Returned product matches sent product": true
+				}
+			]
+		},
+		{
+			"id": "1220a6d7-249f-443d-b338-b89e732919a4",
+			"name": "New Request",
+			"url": "https://fakestoreapi.com/products/1",
+			"time": 300,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200 or 201": true,
+				"Response status code is 201": true,
+				"Schema validation": true,
+				"Product fields are present": true,
+				"Returned product matches sent product": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200 or 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response status code is 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Schema validation": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Product fields are present": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Returned product matches sent product": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				300
+			],
+			"allTests": [
+				{
+					"Status code is 200 or 201": true,
+					"Response status code is 201": true,
+					"Schema validation": true,
+					"Product fields are present": true,
+					"Returned product matches sent product": true
+				}
+			]
+		},
+		{
+			"id": "bf31edb3-63e7-4396-abec-092786bec99d",
+			"name": "New Request",
+			"url": "https://fakestoreapi.com/products/1",
+			"time": 341,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200 or 201": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200 or 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				341
+			],
+			"allTests": [
+				{
+					"Status code is 200 or 201": true
+				}
+			]
+		},
+		{
+			"id": "4f456f80-b56f-44a0-b7bf-dbf0da83da36",
+			"name": "New Request",
+			"url": "https://fakestoreapi.com/products/1",
+			"time": 349,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200 or 201": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200 or 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				349
+			],
+			"allTests": [
+				{
+					"Status code is 200 or 201": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 3214,
+	"collection": {
+		"requests": [
+			{
+				"id": "7055de7c-6156-4682-9f76-b1fc79dff098",
+				"method": "GET"
+			},
+			{
+				"id": "98493ee3-c34c-496c-bdc7-fde1a8c9d90b",
+				"method": "GET"
+			},
+			{
+				"id": "d2392201-ffdc-4695-acc1-8de40e34a412",
+				"method": "GET"
+			},
+			{
+				"id": "8967ea82-be8e-48fc-ad45-19e898f450a0",
+				"method": "GET"
+			},
+			{
+				"id": "b73a2cf7-835d-4fd1-977d-6613b05e8af8",
+				"method": "GET"
+			},
+			{
+				"id": "3234616a-a3b0-4a63-ac5b-dda5d01f74e5",
+				"method": "POST"
+			},
+			{
+				"id": "1220a6d7-249f-443d-b338-b89e732919a4",
+				"method": "PUT"
+			},
+			{
+				"id": "bf31edb3-63e7-4396-abec-092786bec99d",
+				"method": "PATCH"
+			},
+			{
+				"id": "4f456f80-b56f-44a0-b7bf-dbf0da83da36",
+				"method": "DELETE"
+			}
+		]
+	}
+}
